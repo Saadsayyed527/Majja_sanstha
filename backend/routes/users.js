@@ -3,7 +3,7 @@ import { Router } from "express";
 const router = Router();
 
 router.get("/",(req,res)=>{
-    res.send("");
+    res.send("hisdhhds");
 })
 
 // ==== New User Signing Up ====
