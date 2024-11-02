@@ -1,20 +1,24 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Form, Button, Container, Row, Col, InputGroup } from "react-bootstrap";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Link , useNavigate } from "react-router-dom"; // Import Link from react-router-dom
 import usericon from "../Assests/usericon.png";
 import passwordicon from "../Assests/passwordicon.png";
 import loginImage from "../Assests/loginbackImg.png";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import "./login";
+ import "./login.css";
 
-const Login = () => {
+  const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
+  //const [loginError, setLoginError] = useState("");
+
+  const navigate = useNavigate();
+
 
   const validateForm = () => {
-    const newErrors = {};
+  const newErrors = {};
 
     if (!email.trim()) {
       newErrors.email = "Email is required";
@@ -41,11 +45,18 @@ const Login = () => {
 
     try {
       const response = await axios.post('http://localhost:5000/api/auth/login', loginData);
+      //const data = await response.json();
       if (response.status === 200) {
         console.log("Login successful!");
+
+        const token = response.data.token;
+        localStorage.setItem('token', token); 
+
+        navigate('/home');
       }
     } catch (error) {
       console.error("Login error:", error);
+      
     }
   };
 
@@ -98,9 +109,9 @@ const Login = () => {
             </Form.Group>
 
             <div className="text-center mb-3">
-              <a href="#" className="text-decoration-none">
+              <Button variant="link" onClick={() => console.log("Redirect to lost password page")}>
                 Lost Password? <span className="text-primary">Click Here!</span>
-              </a>
+              </Button>
             </div>
 
             {/* Submit Button */}

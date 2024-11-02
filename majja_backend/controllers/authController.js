@@ -18,6 +18,7 @@ const register = async (req, res) => {
     });
 
     await user.save();
+    res.status(200).json({ message: 'Registration successful' });
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: '1h',
@@ -46,7 +47,7 @@ const login = async (req, res) => {
       expiresIn: '1h',
     });
 
-    res.status(200).json({ token });
+    res.status(200).json({ token, user: { id: user._id, name: user.name, email: user.email, phone: user.phone } });;
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
   }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col, InputGroup } from "react-bootstrap";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Link , useNavigate} from "react-router-dom"  // Import Link from react-router-dom
+
 import axios from "axios";
 import usericon from "../Assests/usericon.png";
 import passwordicon from "../Assests/passwordicon.png";
@@ -16,8 +17,10 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
 
+  const navigate = useNavigate();
+
   const validateForm = () => {
-    const newErrors = {};
+  const newErrors = {};
 
     if (!name.trim()) {
       newErrors.name = "Name is required";
@@ -56,8 +59,12 @@ const Signup = () => {
     const signupData = { name, email, phone, password };
     console.log(signupData);
 
+
+
     try {
       const response = await axios.post('http://localhost:5000/api/auth/register', signupData);
+      //const data = await response.json();
+
       if (response.status === 200) {
         console.log("Signup successful!");
         // Clear form on success
@@ -66,9 +73,12 @@ const Signup = () => {
         setPhone('');
         setPassword('');
         setErrors({});
+
+        navigate('/login');
       }
     } catch (error) {
       console.error("Signup error:", error);
+      //console.error("Signup error:", error.message);
     }
   };
 
