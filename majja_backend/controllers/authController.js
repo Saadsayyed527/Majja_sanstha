@@ -23,9 +23,10 @@ const register = async (req, res) => {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: '1h',
     });
-
-    res.status(201).json({ token });
+   
+    res.status(200).json({token, user: {id: user._id, name: user.name, email: user.email, phone: user.phone}});
   } catch (error) {
+    console.error("Server error in register:", error); 
     res.status(500).json({ message: 'Server error' });
   }
 };
@@ -49,6 +50,7 @@ const login = async (req, res) => {
 
     res.status(200).json({ token, user: { id: user._id, name: user.name, email: user.email, phone: user.phone } });;
   } catch (error) {
+    console.error("Login error:", error); // Added error logging for debugging
     res.status(500).json({ message: 'Server error' });
   }
 };
@@ -61,6 +63,7 @@ const getUserDetails = async (req, res) => {
     }
     res.json(user);
   } catch (error) {
+    console.error("Fetch user details error:", error);
     res.status(500).json({ message: 'Server error' });
   }
 };

@@ -17,6 +17,7 @@
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "majjaorg_frontend": "file:",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.5",
