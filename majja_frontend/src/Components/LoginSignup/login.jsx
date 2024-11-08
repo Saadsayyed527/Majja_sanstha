@@ -6,7 +6,7 @@ import usericon from "../Assests/usericon.png";
 import passwordicon from "../Assests/passwordicon.png";
 import loginImage from "../Assests/loginbackImg.png";
 import "bootstrap/dist/css/bootstrap.min.css";
- import "./login.css";
+import "./login.css";
 
   const Login = () => {
   const [email, setEmail] = useState('');
